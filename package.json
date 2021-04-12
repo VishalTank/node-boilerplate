@@ -1,0 +1,60 @@
+{
+  "name": "node-boilerplate",
+  "version": "1.0.0",
+  "description": "A Node.js Backend Server Boilerplate/Jumpstart",
+  "main": "src/index.js",
+  "author": "Vishal T",
+  "license": "ISC",
+  "scripts": {
+    "start": "pm2 start ecosystem.config.json --no-daemon",
+    "dev": "cross-env NODE_ENV=development nodemon src/index.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prettier": "prettier --check **/*.js",
+    "prettier:fix": "prettier --write **/*.js"
+  },
+  "keywords": [
+    "node",
+    "node.js",
+    "boilerplate",
+    "generator",
+    "express",
+    "api",
+    "mongodb",
+    "mongoose",
+    "es8",
+    "ecmascript2019",
+    "jest",
+    "travis",
+    "docker",
+    "passport",
+    "joi",
+    "eslint",
+    "prettier"
+  ],
+  "dependencies": {
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-mongo-sanitize": "^2.0.2",
+    "express-rate-limit": "^5.2.6",
+    "helmet": "^4.4.1",
+    "http-status": "^1.5.0",
+    "joi": "^17.4.0",
+    "mongoose": "^5.12.3",
+    "morgan": "^1.10.0",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "eslint": "^7.24.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "nodemon": "^2.0.7",
+    "prettier": "^2.2.1"
+  }
+}
