@@ -30,7 +30,7 @@ routes.forEach((route) => {
 
 if (config.env === 'development') {
     devRoutes.forEach((route) => {
-        const { path, routeName } = route;
+        const { path, route: routeName } = route;
         router.use(path, routeName);
     });
 }

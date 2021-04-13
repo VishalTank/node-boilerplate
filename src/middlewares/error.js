@@ -3,7 +3,7 @@ const httpStatus = require('http-status');
 
 const config = require('../config/config');
 const logger = require('../config/logger');
-const { ApiError } = require('../utils/ApiError');
+const ApiError = require('../utils/ApiError');
 
 const errorConverter = (err, req, res, next) => {
     let error = err;
@@ -15,10 +15,11 @@ const errorConverter = (err, req, res, next) => {
         error = new ApiError(statusCode, message, false, err.stack);
     }
 
-    next();
+    next(error);
 };
 
-const errorHandler = (err, req, res) => {
+// eslint-disable-next-line no-unused-vars
+const errorHandler = (err, req, res, next) => {
     let { statusCode, message } = err;
 
     if (config.env === 'production' && !err.isOperational) {
@@ -26,7 +27,7 @@ const errorHandler = (err, req, res) => {
         message = httpStatus[httpStatus.INTERNAL_SERVER_ERROR];
     }
 
-    res.locals.message = message;
+    res.locals.errorMessage = err.message;
 
     const response = {
         statusCode,
