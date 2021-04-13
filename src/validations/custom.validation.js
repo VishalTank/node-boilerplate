@@ -7,8 +7,8 @@ const password = (value, helpers) => {
         return helpers.message('Password must contain at least 1 digit and 1 letter');
     }
     return value;
-}
+};
 
 module.exports = {
     password,
-}
+};
