@@ -21,7 +21,14 @@ const login = catchAsync(async (req, res) => {
     res.status(httpStatus[200]).send({ user, tokens });
 });
 
+const logout = catchAsync(async (req, res) => {
+    await authService.logout(req.body.refreshToken);
+
+    res.status(httpStatus.NO_CONTENT).send();
+});
+
 module.exports = {
     register,
     login,
+    logout
 };
