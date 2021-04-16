@@ -30,5 +30,5 @@ const logout = catchAsync(async (req, res) => {
 module.exports = {
     register,
     login,
-    logout
+    logout,
 };

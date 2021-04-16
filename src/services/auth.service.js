@@ -15,7 +15,7 @@ const loginWithEmailAndPassword = async (email, password) => {
     return user;
 };
 
-const logout = async refreshToken => {
+const logout = async (refreshToken) => {
     const refreshTokenDoc = await Token.findOne({ token: refreshToken, typ: tokenTypes.REFRESH, blacklisted: false });
 
     if (!refreshTokenDoc) {
@@ -23,9 +23,9 @@ const logout = async refreshToken => {
     }
 
     await refreshTokenDoc.remove();
-}
+};
 
 module.exports = {
     loginWithEmailAndPassword,
-    logout
+    logout,
 };
