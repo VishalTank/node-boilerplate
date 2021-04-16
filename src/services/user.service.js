@@ -75,10 +75,16 @@ const deleteUserById = async (userId) => {
     return user;
 };
 
+// eslint-disable-next-line arrow-body-style
+const getUserByEmail = async (email) => {
+    return User.findOne({ email });
+};
+
 module.exports = {
     createUser,
     getAllUsers,
     getUserById,
     updateUserById,
     deleteUserById,
+    getUserByEmail,
 };
