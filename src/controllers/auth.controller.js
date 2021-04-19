@@ -19,7 +19,7 @@ const login = catchAsync(async (req, res) => {
     const user = await authService.loginWithEmailAndPassword(email, password);
     const tokens = await tokenService.generateAuthToken(user);
 
-    res.status(httpStatus[200]).send({ user, tokens });
+    res.status(httpStatus.OK).send({ user, tokens });
 });
 
 const logout = catchAsync(async (req, res) => {
@@ -31,7 +31,7 @@ const logout = catchAsync(async (req, res) => {
 const refreshTokens = catchAsync(async (req, res) => {
     const tokens = await authService.refreshAuthTokens(req.body.refreshToken);
 
-    res.status(httpStatus[200]).send({ ...tokens });
+    res.status(httpStatus.OK).send({ ...tokens });
 });
 
 const forgotPassword = catchAsync(async (req, res) => {
