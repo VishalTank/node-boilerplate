@@ -1,9 +1,12 @@
 const moment = require('moment');
 const jwt = require('jsonwebtoken');
+const httpStatus = require('http-status');
 
 const { tokenTypes } = require('../config/tokens');
 const config = require('../config/config');
 const Token = require('../models/token.model');
+const User = require('../models/user.model');
+const ApiError = require('../utils/ApiError');
 
 const generateToken = (userId, expiry, type, secret = config.jwt.secret) => {
     const payload = {
@@ -58,9 +61,24 @@ const verifyToken = async (token, type) => {
     return tokenDoc;
 };
 
+const generateResetPasswordToken = async (email) => {
+    const user = await User.findOne(email);
+
+    if (!user) {
+        throw new ApiError(httpStatus.NOT_FOUND, 'No users found with this email');
+    }
+
+    const expires = moment().add(config.jwt.resetPasswordTokenExpiryInMinutes, 'minutes');
+    const resetPasswordToken = generateToken(user._id, expires, tokenTypes.RESET_PASSWORD);
+    await saveToken(resetPasswordToken, user._id, expires, tokenTypes.RESET_PASSWORD);
+
+    return resetPasswordToken;
+};
+
 module.exports = {
     generateToken,
     saveToken,
     generateAuthToken,
     verifyToken,
+    generateResetPasswordToken,
 };
