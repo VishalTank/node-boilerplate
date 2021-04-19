@@ -55,9 +55,26 @@ const resetPassword = async (resetPasswordToken, newPassword) => {
     }
 };
 
+const verifyEmail = async (verifyEmailToken) => {
+    try {
+        const verifyEmailTokenDoc = await tokenService.verifyToken(verifyEmailToken, tokenTypes.VERIFY_EMAIL);
+        const user = await userService.getUserById(verifyEmailTokenDoc.user);
+
+        if (!user) {
+            throw new Error();
+        }
+
+        await Token.deleteMany({ user: user.id, type: tokenTypes.VERIFY_EMAIL });
+        await userService.updateUserById(user.id, { isEmailVerified: true });
+    } catch (error) {
+        throw new ApiError(httpStatus.UNAUTHORIZED, 'Email verification failed');
+    }
+};
+
 module.exports = {
     loginWithEmailAndPassword,
     logout,
     refreshAuthTokens,
     resetPassword,
+    verifyEmail,
 };

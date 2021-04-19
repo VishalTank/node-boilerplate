@@ -26,6 +26,15 @@ const sendResetPasswordEmail = async (recipient, token) => {
     await sendEmail(recipient, subject, text);
 };
 
+const sendVerificationEmail = async (recipient, token) => {
+    const subject = 'Email Verification';
+    const verificationEmailUrl = `http://frontend-url/verify-email?token=${token}`; // REPLACE THIS WITH PROPER WORKING URL
+    const text = `Dear user,\nTo verify your email, click on this link: ${verificationEmailUrl}\nIf you did not create an account, then ignore this email.`;
+
+    await sendEmail(recipient, subject, text);
+};
+
 module.exports = {
     sendResetPasswordEmail,
+    sendVerificationEmail,
 };
