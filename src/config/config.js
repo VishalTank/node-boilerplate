@@ -42,7 +42,7 @@ module.exports = {
     jwt: {
         secret: envVars.JWT_SECRET,
         accessTokenExpiryInMinutes: envVars.JWT_ACCESS_TOKEN_EXPIRY_IN_MINUTES,
-        refreshTokenExpiryInMinutes: envVars.JWT_REFRESH_TOKEN_EXPIRY_IN_DAYS,
+        refreshTokenExpiryInDays: envVars.JWT_REFRESH_TOKEN_EXPIRY_IN_DAYS,
         resetPasswordTokenExpiryInMinutes: envVars.JWT_RESET_PASSWORD_TOKEN_EXPIRY_IN_MINUTES,
         verifyEmailExpirationMinutes: envVars.JWT_VERIFY_EMAIL_TOKEN_EXPIRY_IN_MINUTES,
     },
