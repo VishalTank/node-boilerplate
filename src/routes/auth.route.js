@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { validate } = require('../models/user.model');
+const validate = require('../middlewares/validate');
 const authValidation = require('../validations/auth.validation');
 const authController = require('../controllers/auth.controller');
 const auth = require('../middlewares/auth');
