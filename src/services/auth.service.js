@@ -39,8 +39,25 @@ const refreshAuthTokens = async (refreshToken) => {
     }
 };
 
+const resetPassword = async (resetPasswordToken, newPassword) => {
+    try {
+        const resetPasswordTokenDoc = await tokenService.verifyToken(resetPasswordToken, tokenTypes.RESET_PASSWORD);
+        const user = await userService.getUserById(resetPasswordTokenDoc.user);
+
+        if (!user) {
+            throw new Error();
+        }
+
+        await userService.updateUserById(user._id, { password: newPassword });
+        await Token.deleteMany({ user: user._id, type: tokenTypes.RESET_PASSWORD });
+    } catch (error) {
+        throw new ApiError(httpStatus.UNAUTHORIZED, 'Password reset failed');
+    }
+};
+
 module.exports = {
     loginWithEmailAndPassword,
     logout,
     refreshAuthTokens,
+    resetPassword,
 };
