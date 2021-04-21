@@ -62,7 +62,7 @@ const verifyToken = async (token, type) => {
 };
 
 const generateResetPasswordToken = async (email) => {
-    const user = await User.findOne(email);
+    const user = await User.findOne({ email });
 
     if (!user) {
         throw new ApiError(httpStatus.NOT_FOUND, 'No users found with this email');
