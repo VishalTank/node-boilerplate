@@ -9,7 +9,7 @@ const tokenService = require('./token.service');
 const loginWithEmailAndPassword = async (email, password) => {
     const user = await userService.getUserByEmail(email);
 
-    if (!user || !user.doesPasswordMatch(password)) {
+    if (!user || !(await user.doesPasswordMatch(password))) {
         throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect Email or Password');
     }
     return user;
