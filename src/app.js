@@ -9,7 +9,7 @@ const routes = require('./routes');
 const morgan = require('./config/morgan');
 const config = require('./config/config');
 const { jwtStrategy } = require('./config/passport');
-const { authLimiter } = require('./middlewares/requestLimiter');
+const { apiLimiter } = require('./middlewares/requestLimiter');
 const { ApiError } = require('./utils/ApiError');
 const { errorConverter, errorHandler } = require('./middlewares/error');
 
@@ -25,7 +25,7 @@ if (config.env !== 'test') {
 app.use(helmet());
 
 // Parse incoming requests with JSON payloads
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
 
 // Parse nested objects in a request
 app.use(express.urlencoded({ extended: true }));
@@ -41,10 +41,10 @@ app.use(passport.initialize());
 passport.use('jwt', jwtStrategy);
 
 // Limit requests to prevent spamming on auth endpoints
-app.use('/api/auth', authLimiter);
+app.use('/api/auth', apiLimiter);
 
 // API Routes
-app.use('/api', routes);
+app.use('/api', apiLimiter, routes);
 
 // 404 Response for invalid API requests
 app.use((req, res, next) => {
