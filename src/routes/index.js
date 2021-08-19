@@ -1,27 +1,16 @@
 const router = require('express').Router();
 
-const authRoute = require('./auth.route');
 const userRoute = require('./user.route');
-const docsRoute = require('./docs.route');
 const config = require('../config/config');
 
 const routes = [
-    {
-        path: '/auth',
-        route: authRoute,
-    },
     {
         path: '/users',
         route: userRoute,
     },
 ];
 
-const devRoutes = [
-    {
-        path: '/docs',
-        route: docsRoute,
-    },
-];
+const devRoutes = [];
 
 routes.forEach((route) => {
     const { path, route: routeName } = route;
