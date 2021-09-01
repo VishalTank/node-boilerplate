@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "author": "Vishal T",
   "license": "ISC",
+  "bin": "bin/buildProject.js",
   "scripts": {
     "start": "pm2 start ecosystem.config.json --no-daemon",
     "dev": "cross-env NODE_ENV=development nodemon src/index.js",
